@@ -2,6 +2,7 @@ const CACHE_KEY = 'qrscan-v1';
 
 const urlsToCache = [
   '/qrscan/',
+  // 'https://unpkg.com/qrcode-decoder@0.3.1/dist/index.min.js',
   '/qrscan/index.html',
   '/qrscan/assets/style.css',
   '/qrscan/assets/index.js',

@@ -1,6 +1,6 @@
 {
-  "short_name": "Back to the future",
-  "name": "Back to the future qrscan",
+  "short_name": "QRCode Hunter",
+  "name": "QRCode Hunter",
   "icons": [
     {
       "src": "favicon-32x32.png",

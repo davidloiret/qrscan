@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="/qrscan/assets/style.css">
     <title>QrScan</title>
 
@@ -11,30 +10,27 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/qrscan/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/qrscan/favicon-16x16.png">
     <link rel="manifest" href="/qrscan/manifest.json">
-    <meta name="theme-color" content="#000000" />
+    <!-- <meta name="theme-color" content="#000000" /> -->
   </head>
   <script src="https://unpkg.com/qrcode-decoder@0.3.1/dist/index.min.js"></script>
   <body>
     <script src="/qrscan/assets/index.js"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-          .register('service-worker.js')
-          .then(() => {
-            console.log('Registered')
-          })
-          .catch(err => {
-            console.error('Registration error')
-          });
-      }
-    </script>
+
   <button id="start">Start</button> <button id="stop">Stop</button><br />
-  <span id="result">Click start to scan qrcode.</span><br />
+  <span id="result"></span><br />
   <hr />
   <video id="video" autoplay style="max-width: 100%;"></video>
   <script type="text/javascript">
     function main() {
       var qr = new QrcodeDecoder();
+      const videoSize = {
+      width: { min: 360, ideal: 360, max: 360 },
+      height: { min: 360, ideal: 360, max: 360 },
+    };
+      qr.videoConstraints = {
+        video: { ...videoSize, zoom: 0.5, aspectRatio: 1, facingMode: { exact: 'environment' } },
+        audio: false,
+      }
       var video = document.querySelector('#video');
       var start = document.querySelector('#start');
       var stop = document.querySelector('#stop');
@@ -48,13 +44,18 @@
         let code = await qr.decodeFromCamera(video,
           // you can customize your camera size like below
           // {
-          //   width: 400,
-          //   height: 400,
+          //   width: 200,
+          //   height: 200,
           // }
         );
-        console.log('code', code);
         result.innerText = 'Result: ' + code.data;
+        const link = document.querySelector('#virus-total');
+        link.href = `https://www.virustotal.com/gui/search/${code.data}`;
+        // startScan();
+        // REFRESH
       }
+
+      startScan();
       start.onclick = startScan;
 
       stop.onclick = function () {
@@ -63,5 +64,6 @@
     }
     main();
   </script>
+    <a id="virus-total">See on virus Total</a>
   </body>
 </html>
