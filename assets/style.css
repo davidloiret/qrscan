@@ -1,0 +1,13 @@
+body {
+  background-color: rgb(53, 54, 58);
+  font-family: courier, arial, helvetica;
+  color: #fff;
+  font-size: 1.6em;
+}
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  flex-direction: column;
+}
