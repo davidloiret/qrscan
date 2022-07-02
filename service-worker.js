@@ -1,18 +1,18 @@
-const CACHE_KEY = 'pwa-v1';
+const CACHE_KEY = 'qrscan-v1';
 
 const urlsToCache = [
-  '/pwa/',
-  '/pwa/index.html',
-  '/pwa/assets/style.css',
-  '/pwa/assets/index.js',
-  '/pwa/manifest.json',
-  '/pwa/favicon.ico',
-  '/pwa/favicon-16x16.png',
-  '/pwa/favicon-32x32.png',
-  '/pwa/android-chrome-192x192.png',
-  '/pwa/android-chrome-512x512.png',
-  '/pwa/apple-touch-icon.png',
-  '/pwa/assets/back-to-the-future-1920.jpeg',
+  '/qrscan/',
+  '/qrscan/index.html',
+  '/qrscan/assets/style.css',
+  '/qrscan/assets/index.js',
+  '/qrscan/manifest.json',
+  '/qrscan/favicon.ico',
+  '/qrscan/favicon-16x16.png',
+  '/qrscan/favicon-32x32.png',
+  '/qrscan/android-chrome-192x192.png',
+  '/qrscan/android-chrome-512x512.png',
+  '/qrscan/apple-touch-icon.png',
+  '/qrscan/assets/back-to-the-future-1920.jpeg',
 ];
 
 self.addEventListener('install', event => {

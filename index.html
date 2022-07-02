@@ -3,18 +3,19 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/pwa/assets/style.css">
-    <title>Back to the future</title>
+    <link rel="stylesheet" href="/qrscan/assets/style.css">
+    <title>QrScan</title>
 
-    <link rel="icon" href="/pwa/favicon.ico" sizes="16x16" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/pwa/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/pwa/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/pwa/favicon-16x16.png">
-    <link rel="manifest" href="/pwa/manifest.json">
+    <link rel="icon" href="/qrscan/favicon.ico" sizes="16x16" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/qrscan/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/qrscan/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/qrscan/favicon-16x16.png">
+    <link rel="manifest" href="/qrscan/manifest.json">
     <meta name="theme-color" content="#000000" />
   </head>
+  <script src="https://unpkg.com/qrcode-decoder@0.3.1/dist/index.min.js"></script>
   <body>
-    <script src="/pwa/assets/index.js"></script>
+    <script src="/qrscan/assets/index.js"></script>
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker
@@ -27,9 +28,40 @@
           });
       }
     </script>
-    <div class="main">
-      <h1>Back to the future PWA</h1>
-      <img src="/pwa/assets/back-to-the-future-1920.jpeg" />
-    </div>
+  <button id="start">Start</button> <button id="stop">Stop</button><br />
+  <span id="result">Click start to scan qrcode.</span><br />
+  <hr />
+  <video id="video" autoplay style="max-width: 100%;"></video>
+  <script type="text/javascript">
+    function main() {
+      var qr = new QrcodeDecoder();
+      var video = document.querySelector('#video');
+      var start = document.querySelector('#start');
+      var stop = document.querySelector('#stop');
+      var result = document.querySelector('#result');
+      async function startScan() {
+        if (!qr.isCanvasSupported()) {
+          alert("Your browser doesn't match the required specs.");
+          throw new Error('Canvas and getUserMedia are required');
+        }
+
+        let code = await qr.decodeFromCamera(video,
+          // you can customize your camera size like below
+          // {
+          //   width: 400,
+          //   height: 400,
+          // }
+        );
+        console.log('code', code);
+        result.innerText = 'Result: ' + code.data;
+      }
+      start.onclick = startScan;
+
+      stop.onclick = function () {
+        qr.stop();
+      };
+    }
+    main();
+  </script>
   </body>
 </html>
